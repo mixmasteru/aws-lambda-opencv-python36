@@ -97,17 +97,25 @@ ldconfig
 cd /opt
 git clone git://source.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout release/2.2
-PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig"
-export PKG_CONFIG_PATH
 
 #./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" --extra-ldflags="-L$HOME/ffmpeg_build/lib" --#bindir="$HOME/bin" \
 #--extra-libs=-ldl --enable-version3 --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvpx --enable-libfaac \
 #--enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libvo-aacenc --enable-libxvid --disable-ffplay \
 #--enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 --enable-openssl && make install
 
-./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs=-ldl --enable-version3 --enable-libvpx --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libvo-aacenc --enable-libxvid --disable-ffplay --enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 --enable-openssl && make install
+# 2.2
+# git checkout release/2.2
+# PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig"
+# export PKG_CONFIG_PATH
+# ./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs=-ldl --enable-version3 --enable-libvpx --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libvo-aacenc --enable-libxvid --disable-ffplay --enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 --enable-openssl
+# make install
 
+# 3.3.3
+git checkout n3.3.3
+PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig"
+export PKG_CONFIG_PATH
+./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs=-ldl --enable-version3 --enable-libvpx --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --disable-ffplay --enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 --enable-openssl
+make install
 
 # Test the resulting ffmpeg binary
 cp $HOME/bin/ffmpeg /usr/bin/

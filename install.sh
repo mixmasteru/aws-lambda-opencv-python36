@@ -26,6 +26,7 @@ make install
 ln -s /usr/local/bin/python3 /usr/bin/
 ln -s /usr/local/bin/pip3 /usr/bin/
 
+cd /root
 python3 -m venv venv
 source venv/bin/activate
 pip install numpy

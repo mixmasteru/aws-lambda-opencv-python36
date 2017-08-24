@@ -30,6 +30,7 @@ yum -y install libXau-devel libXdmcp-devel libXext-devel libXrandr-devel libXren
 yum -y install libogg libvorbis vorbis-tools mesa-libGL-devel mesa-libGLU-devel xorg-x11-proto-devel zlib-devel
 yum -y install libtheora theora-tools
 yum -y install openssl
+yum -y install openssl-devel
 yum -y install ncurses-devel
 yum -y install libdc1394 libdc1394-devel
 yum -y install amrnb-devel amrwb-devel opencore-amr-devel

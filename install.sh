@@ -26,6 +26,8 @@ make install
 ln -s /usr/local/bin/python3 /usr/bin/
 ln -s /usr/local/bin/pip3 /usr/bin/
 
+cd /root
+
 git clone https://github.com/Itseez/opencv_contrib.git
 cd opencv_contrib
 git checkout 3.3.0
@@ -43,6 +45,8 @@ pip install numpy
 
 # hack to force python3:
 mv /usr/bin/python2.7 /usr/bin/back_python2.7
+
+cd opencv/release
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \

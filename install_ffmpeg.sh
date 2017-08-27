@@ -100,12 +100,13 @@ cd /opt
 git clone git://source.ffmpeg.org/ffmpeg.git
 cd ffmpeg
 git checkout release/3.0
+
 PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig"
 export PKG_CONFIG_PATH
 ./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" \
 --extra-libs=-ldl --enable-version3 --enable-libvpx \
 --enable-libx264 --enable-libmp3lame --enable-libtheora --enable-libvorbis  --enable-libxvid --disable-ffplay \
---enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 -fPIC --enable-pic && make install
+--enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 --cc="gcc -m64 -fPIC" --enable-pic && make install
 
 # Test the resulting ffmpeg binary
 cp $HOME/bin/ffmpeg /usr/bin/

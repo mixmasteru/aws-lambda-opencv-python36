@@ -38,31 +38,31 @@ cd /opt
 wget http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz
 tar xzvf xvidcore-1.3.2.tar.gz && rm -f xvidcore-1.3.2.tar.gz
 cd xvidcore/build/generic
-./configure --prefix="$HOME/ffmpeg_build" && make && make install
+./configure --prefix="$HOME/ffmpeg_build" --enable-shared && make && make install
 
 cd /opt
 wget http://downloads.xiph.org/releases/ogg/libogg-1.3.1.tar.gz
 tar xzvf libogg-1.3.1.tar.gz && rm -f libogg-1.3.1.tar.gz
 cd libogg-1.3.1
-./configure --prefix="$HOME/ffmpeg_build" --disable-shared && make && make install
+./configure --prefix="$HOME/ffmpeg_build" --enable-shared && make && make install
 
 cd /opt
 wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
 tar xzvf libvorbis-1.3.4.tar.gz && rm -f libvorbis-1.3.4.tar.gz
 cd libvorbis-1.3.4
-./configure --prefix="$HOME/ffmpeg_build" --with-ogg="$HOME/ffmpeg_build" --disable-shared && make && make install
+./configure --prefix="$HOME/ffmpeg_build" --with-ogg="$HOME/ffmpeg_build" --enable-shared && make && make install
 
 cd /opt
 wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz
 tar xzvf libtheora-1.1.1.tar.gz && rm -f libtheora-1.1.1.tar.gz
 cd libtheora-1.1.1
-./configure --prefix="$HOME/ffmpeg_build" --with-ogg="$HOME/ffmpeg_build" --disable-examples --disable-shared --disable-sdltest --disable-vorbistest && make && make install
+./configure --prefix="$HOME/ffmpeg_build" --with-ogg="$HOME/ffmpeg_build" --disable-examples --enable-shared --disable-sdltest --disable-vorbistest && make && make install
 
 cd /opt
 git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
 cd fdk-aac
 autoreconf -fiv
-./configure --prefix="$HOME/ffmpeg_build" --disable-shared
+./configure --prefix="$HOME/ffmpeg_build" --enable-shared
 make
 make install
 
@@ -70,26 +70,26 @@ cd /opt
 curl -L -O http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 tar xzvf lame-3.99.5.tar.gz
 cd lame-3.99.5
-./configure --prefix="$HOME/ffmpeg_build" --disable-shared --enable-nasm && make && make install
+./configure --prefix="$HOME/ffmpeg_build" --enable-shared --enable-nasm && make && make install
 
 yum -y remove yasm
 cd /opt
 wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
 tar xzfv yasm-1.2.0.tar.gz && rm -f yasm-1.2.0.tar.gz
 cd yasm-1.2.0
-./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin" && make install
+./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin" --enable-shared && make install
 export "PATH=$PATH:$HOME/bin" 
 
 cd /opt
 git clone https://chromium.googlesource.com/webm/libvpx
 cd libvpx
 git checkout tags/v1.3.0
-./configure --prefix="$HOME/ffmpeg_build" --disable-examples && make && make install
+./configure --prefix="$HOME/ffmpeg_build" --disable-examples --enable-shared && make && make install
 
 cd /opt
 git clone git://git.videolan.org/x264.git
 cd x264
-./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin" --enable-static --disable-asm && make install
+./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin" --enable-static --enable-shared --disable-asm && make install
 
 export LD_LIBRARY_PATH=/usr/local/lib/:$HOME/ffmpeg_build/lib/
 echo /usr/local/lib >> /etc/ld.so.conf.d/custom-libs.conf
@@ -105,7 +105,7 @@ export PKG_CONFIG_PATH
 ./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" \
 --extra-libs=-ldl --enable-version3 --enable-libvpx \
 --enable-libx264 --enable-libmp3lame --enable-libtheora --enable-libvorbis  --enable-libxvid --disable-ffplay \
---enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 && make install
+--enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 -fPIC --enable-pic && make install
 
 # Test the resulting ffmpeg binary
 cp $HOME/bin/ffmpeg /usr/bin/

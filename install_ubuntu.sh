@@ -41,7 +41,7 @@ unzip opencv_contrib.zip
 pip3 install --upgrade pip
 pip3 install virtualenv
 
-virtualenv -p /usr/bin/python3 python3
+virtualenv -p /usr/bin/python3.6 python3
 source python3/bin/activate
 pip install numpy
 #pip install gphoto2
@@ -54,7 +54,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D INSTALL_PYTHON_EXAMPLES=ON \
     -D INSTALL_C_EXAMPLES=OFF \
-    -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib-3.2.0/modules \
+    -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib-3.3.0/modules \
     -D PYTHON_EXECUTABLE=/root/python3/bin/python \
     -D BUILD_EXAMPLES=ON ..
 

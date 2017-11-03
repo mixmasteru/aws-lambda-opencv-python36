@@ -5,12 +5,8 @@ if [ "`/usr/bin/whoami`" != "root" ]; then
     exit 1
 fi
 
-add-apt-repository -y ppa:fkrull/deadsnakes
 apt-get update -y
 apt-get upgrade -y
-apt-get install -y python3.6
-apt-get install -y python3.6-dev
-apt-get install -y python3-pip
 apt-get install -y ffmpeg unzip
 
 apt-get install -y build-essential cmake pkg-config libjpeg8-dev \
@@ -27,22 +23,17 @@ wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.3.
 unzip opencv_contrib.zip
 
 #pyenv
-#apt-get install -y build-essential libbz2-dev libssl-dev libreadline-dev libsqlite3-dev tk-dev
+apt-get install -y build-essential libbz2-dev libssl-dev libreadline-dev libsqlite3-dev tk-dev
 # optional scientific package headers (for Numpy, Matplotlib, SciPy, etc.)
-#apt-get install -y libpng-dev libfreetype6-dev
-#curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-#echo 'export PATH="~/.pyenv/bin:$PATH"' >> ~/.bashrc
-#echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-#echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-#source ~/.bashrc
-#pyenv install 3.6.1
-#pyenv global 3.6.1
+apt-get install -y libpng-dev libfreetype6-dev
+curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+echo 'export PATH="~/.pyenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+source ~/.bashrc
+pyenv install 3.6.1
+pyenv global 3.6.1
 
-pip3 install --upgrade pip
-pip3 install virtualenv
-
-virtualenv -p /usr/bin/python3.6 python3
-source python3/bin/activate
 pip install numpy
 #pip install gphoto2
 
@@ -51,18 +42,29 @@ mkdir build
 cd build
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr/local \
-    -D INSTALL_PYTHON_EXAMPLES=ON \
-    -D INSTALL_C_EXAMPLES=OFF \
-    -D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib-3.3.0/modules \
-    -D PYTHON_EXECUTABLE=/root/python3/bin/python \
-    -D BUILD_EXAMPLES=ON ..
+-D CMAKE_INSTALL_PREFIX=/root/.pyenv/versions/3.6.1/usr/local/ \
+-D INSTALL_C_EXAMPLES=OFF \
+-D BUILD_NEW_PYTHON_SUPPORT=ON \
+-D BUILD_opencv_python3=ON \
+-D BUILD_opencv_legacy=OFF \
+-D INSTALL_PYTHON_EXAMPLES=ON \
+-D OPENCV_EXTRA_MODULES_PATH=/root/opencv_contrib-3.3.0/modules/ \
+-D BUILD_EXAMPLES=ON \
+-D PYTHON_EXECUTABLE=/root/.pyenv/versions/3.6.1/bin/python \
+-D PYTHON_LIBRARY=/root/.pyenv/versions/3.6.1/lib/libpython3.6m.a \
+-D PYTHON_INCLUDE_DIR=/root/.pyenv/versions/3.6.1/include/python3.6m \
+-D PYTHON_INCLUDE_DIRS=/root/.pyenv/versions/3.6.1/include/python3.6m \
+-D PYTHON_INCLUDE_DIRS2=/root/.pyenv/versions/3.6.1/include/python3.6m \
+-D INCLUDE_DIRS=/root/.pyenv/versions/3.6.1/include/python3.6m \
+-D INCLUDE_DIRS2=/root/.pyenv/versions/3.6.1/include/python3.6m \
+-D PYTHON_PACKAGES_PATH=/root/.pyenv/versions/3.6.1/lib/python3.6/site-packages/ \
+-D PYTHON_NUMPY_INCLUDE_DIR=/root/.pyenv/versions/3.6.1/lib/python3.6/site-packages/numpy/core/include ..
 
 make -j 3 install
 ldconfig
 
-cd ~/venv/lib/python3.6/site-packages/
-ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
-cd ~/opencv
+cd root/.pyenv/versions/3.6.1/lib/python3.6/site-packages/
+ln -s /root/.pyenv/versions/3.6.1/usr/local/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
+cd 
 
 python -c 'import cv2; print(cv2.__version__)'
